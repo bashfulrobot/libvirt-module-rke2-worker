@@ -56,18 +56,18 @@ users:
       - ${jsonencode(trimspace(file("${var.path_to_ssh_public_key}")))}
 ssh_pwauth: True
 runcmd:
-  - [ bash, -c, 'echo "Cloud-init start: $(TZ=":America/Vancouver" date "+%Y-%m-%d %H:%M:%S.%N %Z")" >> /home/root/cloud-init-run.log' ]
-  - [ bash, -c, 'echo "Running: parted /dev/vdb --script -- mklabel gpt mkpart primary ext4 0% 100%" >> /home/root/cloud-init-run.log; parted /dev/vdb --script -- mklabel gpt mkpart primary ext4 0% 100% >> /home/root/cloud-init-run.log 2>&1' ]
-  - [ bash, -c, 'echo "Running: lsblk -f /dev/vdb1 --output FSTYPE" >> /home/root/cloud-init-run.log; lsblk -f /dev/vdb1 --output FSTYPE | grep -q "^$" && echo "Running: mkfs.ext4 /dev/vdb1" >> /home/root/cloud-init-run.log; mkfs.ext4 /dev/vdb1 >> /home/root/cloud-init-run.log 2>&1' ]
-  - [ bash, -c, 'echo "Running: e2label /dev/vdb1 data" >> /home/root/cloud-init-run.log; e2label /dev/vdb1 data >> /home/root/cloud-init-run.log 2>&1' ]
-  - [ bash, -c, 'echo "Running: mkdir -p /data" >> /home/root/cloud-init-run.log; mkdir -p /data >> /home/root/cloud-init-run.log 2>&1' ]
-  - [ bash, -c, 'echo "Running: mount LABEL=data /data" >> /home/root/cloud-init-run.log; mount LABEL=data /data >> /home/root/cloud-init-run.log 2>&1' ]
-  - [ bash, -c, 'echo "Running: echo \"LABEL=data /data ext4 defaults 0 0\" >> /etc/fstab" >> /home/root/cloud-init-run.log; echo "LABEL=data /data ext4 defaults 0 0" >> /etc/fstab' ]
-  - [ bash, -c, 'start_time=$(TZ=":America/Vancouver" date "+%Y-%m-%d %H:%M:%S.%N %Z"); echo "Running Wget - install-rke2-worker.sh: $start_time" >> /home/root/cloud-init-run.log' ]
-  - [ bash, -c, 'wget -P /tmp https://raw.githubusercontent.com/bashfulrobot/libvirt-module-helpers/main/install-rke2-worker.sh >> /home/root/cloud-init-run.log 2>&1' ]
-  - [ bash, -c, 'chmod +x /tmp/install-rke2-worker.sh >> /home/root/cloud-init-run.log 2>&1' ]
-  - [ bash, -c, '/tmp/install-rke2-worker.sh >> /home/root/cloud-init-run.log 2>&1' ]
-  - [ bash, -c, 'echo "Cloud-init end: $(TZ=":America/Vancouver" date "+%Y-%m-%d %H:%M:%S.%N %Z")" >> /home/root/cloud-init-run.log' ]
+  - [ bash, -c, 'echo "Cloud-init start: $(TZ=":America/Vancouver" date "+%Y-%m-%d %H:%M:%S.%N %Z")" >> /root/cloud-init-run.log' ]
+  - [ bash, -c, 'echo "Running: parted /dev/vdb --script -- mklabel gpt mkpart primary ext4 0% 100%" >> /root/cloud-init-run.log; parted /dev/vdb --script -- mklabel gpt mkpart primary ext4 0% 100% >> /root/cloud-init-run.log 2>&1' ]
+  - [ bash, -c, 'echo "Running: lsblk -f /dev/vdb1 --output FSTYPE" >> /root/cloud-init-run.log; lsblk -f /dev/vdb1 --output FSTYPE | grep -q "^$" && echo "Running: mkfs.ext4 /dev/vdb1" >> /root/cloud-init-run.log; mkfs.ext4 /dev/vdb1 >> /root/cloud-init-run.log 2>&1' ]
+  - [ bash, -c, 'echo "Running: e2label /dev/vdb1 data" >> /root/cloud-init-run.log; e2label /dev/vdb1 data >> /root/cloud-init-run.log 2>&1' ]
+  - [ bash, -c, 'echo "Running: mkdir -p /data" >> /root/cloud-init-run.log; mkdir -p /data >> /root/cloud-init-run.log 2>&1' ]
+  - [ bash, -c, 'echo "Running: mount LABEL=data /data" >> /root/cloud-init-run.log; mount LABEL=data /data >> /root/cloud-init-run.log 2>&1' ]
+  - [ bash, -c, 'echo "Running: echo \"LABEL=data /data ext4 defaults 0 0\" >> /etc/fstab" >> /root/cloud-init-run.log; echo "LABEL=data /data ext4 defaults 0 0" >> /etc/fstab' ]
+  - [ bash, -c, 'start_time=$(TZ=":America/Vancouver" date "+%Y-%m-%d %H:%M:%S.%N %Z"); echo "Running Wget - install-rke2-worker.sh: $start_time" >> /root/cloud-init-run.log' ]
+  - [ bash, -c, 'wget -P /tmp https://raw.githubusercontent.com/bashfulrobot/libvirt-module-helpers/main/install-rke2-worker.sh >> /root/cloud-init-run.log 2>&1' ]
+  - [ bash, -c, 'chmod +x /tmp/install-rke2-worker.sh >> /root/cloud-init-run.log 2>&1' ]
+  - [ bash, -c, '/tmp/install-rke2-worker.sh >> /root/cloud-init-run.log 2>&1' ]
+  - [ bash, -c, 'echo "Cloud-init end: $(TZ=":America/Vancouver" date "+%Y-%m-%d %H:%M:%S.%N %Z")" >> /root/cloud-init-run.log' ]
 EOF
 }
 
