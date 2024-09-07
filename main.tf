@@ -57,7 +57,9 @@ users:
 ssh_pwauth: True
 runcmd:
   - [ bash, -c, 'echo "Cloud-init start: $(TZ=":America/Vancouver" date "+%Y-%m-%d %H:%M:%S.%N %Z")" >> /root/cloud-init-run.log' ]
-  - [ bash, -c, 'echo "Running: apt update; apt install traceroute -y" >> /home/${var.admin_name}/cloud-init-run.log; apt update; apt install traceroute -y >> /home/${var.admin_name}/cloud-init-run.log 2>&1' ]
+  - [ bash, -c, 'start_time=$(TZ=":America/Vancouver" date "+%Y-%m-%d %H:%M:%S.%N %Z"); echo "Running apt installs: $start_time" >> /root/cloud-init-run.log' ]
+  - [ bash, -c, 'apt update; >> /root/cloud-init-run.log 2>&1' ]
+  - [ bash, -c, 'apt install traceroute; >> /root/cloud-init-run.log 2>&1' ]
   - [ bash, -c, 'echo "Running: parted /dev/vdb --script -- mklabel gpt mkpart primary ext4 0% 100%" >> /root/cloud-init-run.log; parted /dev/vdb --script -- mklabel gpt mkpart primary ext4 0% 100% >> /root/cloud-init-run.log 2>&1' ]
   - [ bash, -c, 'echo "Running: lsblk -f /dev/vdb1 --output FSTYPE" >> /root/cloud-init-run.log; lsblk -f /dev/vdb1 --output FSTYPE | grep -q "^$" && echo "Running: mkfs.ext4 /dev/vdb1" >> /root/cloud-init-run.log; mkfs.ext4 /dev/vdb1 >> /root/cloud-init-run.log 2>&1' ]
   - [ bash, -c, 'echo "Running: e2label /dev/vdb1 data" >> /root/cloud-init-run.log; e2label /dev/vdb1 data >> /root/cloud-init-run.log 2>&1' ]
